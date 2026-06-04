@@ -233,33 +233,37 @@ function App() {
                   <div className="select-arrow"></div>
                 </div>
               </div>
+              {/* SPECIAL REQUESTS HEADING */}
+              <div className="form-group">
+                <label className="form-label" style={{ marginBottom: '8px', display: 'block' }}>
+                  Special Requests
+                </label>
+              </div>
 
               {/* 4. HIGH CHAIR FIELD */}
               <div className="checkbox-section">
-                <span className="checkbox-label-header">High Chair Required?</span>
                 <label className="custom-checkbox-container">
                   <input type="checkbox" checked={highChair} onChange={(e) => setHighChair(e.target.checked)} />
                   <span className="checkmark-box"></span>
-                  <span className="checkbox-text">Yes</span>
+                  <span className="checkbox-text">High Chair Needed</span>
                 </label>
               </div>
 
               {/* 5. WHEELCHAIR FIELD */}
               <div className="checkbox-section">
-                <span className="checkbox-label-header">Wheelchair Accessible Table Required?</span>
                 <label className="custom-checkbox-container">
                   <input type="checkbox" checked={wheelchair} onChange={(e) => setWheelchair(e.target.checked)} />
                   <span className="checkmark-box"></span>
-                  <span className="checkbox-text">Yes</span>
+                  <span className="checkbox-text">Wheelchair-Accessible Table Needed</span>
                 </label>
               </div>
 
               {/* MARKETING PROMO CHECKBOX */}
               <div className="checkbox-section promo-margin">
-                <label className="custom-checkbox-container align-start">
+                <label className="custom-checkbox-container">
                   <input type="checkbox" checked={promo} onChange={(e) => setPromo(e.target.checked)} />
-                  <span className="checkmark-box small-box"></span>
-                  <span className="checkbox-text small-text font-small">
+                  <span className="checkmark-box"></span>
+                  <span className="checkbox-text">
                     Receive promo and update messages from this restaurant
                   </span>
                 </label>
@@ -386,7 +390,7 @@ function App() {
                   Share this link to your friends
                 </button>
 
-                <button type="button" className="btn-action-outline outline-subtle-grey" onClick={handleReset}>
+                <button type="button" className="btn-action-outline" onClick={handleReset}>
                   Join Waitlist Again
                 </button>
               </div>
