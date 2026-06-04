@@ -319,8 +319,19 @@ function App() {
               <div className="disclaimer-note">
                 <strong>Note:</strong> Your details will be used only for managing your seating, which is subject to availability.
               </div>
-              <footer className="footer-branding">
+              {/* <footer className="footer-branding">
                 Powered by <span className="brand-logo">reta<span className="brand-accent">lo</span></span>
+              </footer> */}
+              <footer className="footer-branding">
+                {/* <span>Powered by</span> */}
+                <img
+                  src={process.env.PUBLIC_URL ? `${process.env.PUBLIC_URL}/retale.png` : '/retale.png'}
+                  alt="Retale Logo"
+                  className="footer-logo-img"
+                  onError={(e) => {
+                    e.target.src = '/retale.png';
+                  }}
+                />
               </footer>
             </form>
           )}
