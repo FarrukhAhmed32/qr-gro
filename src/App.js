@@ -233,6 +233,7 @@ function App() {
                   <div className="select-arrow"></div>
                 </div>
               </div>
+              
               {/* SPECIAL REQUESTS HEADING */}
               <div className="form-group">
                 <label className="form-label" style={{ marginBottom: '8px', display: 'block' }}>
@@ -257,6 +258,9 @@ function App() {
                   <span className="checkbox-text">Wheelchair-Accessible Table Needed</span>
                 </label>
               </div>
+
+              {/* 3 LINES OF SPACE BEFORE PROMO CHECKBOX */}
+              <br />
 
               {/* MARKETING PROMO CHECKBOX */}
               <div className="checkbox-section promo-margin">
@@ -291,7 +295,7 @@ function App() {
               <p className="live-status-subheading color-green">There are 5 parties ahead of you</p>
 
               <div className="ticket-number-box">
-                <p className="ticket-label">Your waiting number is</p>
+                <p className="ticket-label">Your reservation number is</p>
                 <div className="ticket-huge-id">{waitingCode || 'A12'}</div>
                 <p className="ticket-party-count">({guests || '4'} guest{parseInt(guests) !== 1 ? 's' : ''})</p>
               </div>
@@ -332,7 +336,7 @@ function App() {
               <p className="live-status-subheading color-green">Only 2 parties ahead of you</p>
 
               <div className="ticket-number-box">
-                <p className="ticket-label">Your waiting number is</p>
+                <p className="ticket-label">Your reservation number is</p>
                 <div className="ticket-huge-id">{waitingCode || 'A12'}</div>
                 <p className="ticket-party-count">({guests || '4'} guest{parseInt(guests) !== 1 ? 's' : ''})</p>
               </div>
@@ -374,7 +378,7 @@ function App() {
               <div className="spacer-block-element"></div>
 
               <div className="ticket-number-box m-bottom-compact">
-                <p className="ticket-label">Your waiting number is</p>
+                <p className="ticket-label">Your reservation number is</p>
                 <div className="ticket-huge-id">{waitingCode || 'A12'}</div>
                 <p className="ticket-party-count">({guests || '4'} guest{parseInt(guests) !== 1 ? 's' : ''})</p>
               </div>
