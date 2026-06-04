@@ -217,7 +217,7 @@ function App() {
 
               {/* 3. NUMBER OF GUESTS FIELD */}
               <div className="form-group" id="guests">
-                <label className="form-label">No. Of Guests</label>
+                <label className="form-label">Number Of Guests</label>
                 <div className="select-wrapper">
                   <select
                     value={guests}
@@ -277,7 +277,10 @@ function App() {
                 {isSubmitting ? <span className="spinner"></span> : 'JOIN WAITLIST'}
               </button>
 
-              <div className="terms-container">
+              {/* <div className="terms-container">
+                By joining the waitlist, you agree to our <a href="#terms" className="terms-link" onClick={e => e.preventDefault()}>terms and conditions</a>.
+              </div> */}
+              <div className="terms-container" style={{ whiteSpace: 'nowrap' }}>
                 By joining the waitlist, you agree to our <a href="#terms" className="terms-link" onClick={e => e.preventDefault()}>terms and conditions</a>.
               </div>
               <div className="disclaimer-note">
