@@ -15,9 +15,7 @@ const PhoneIcon = () => (
   </svg>
 );
 
-// Custom SVG Logo for BBQ Tonight Restaurant
-// Brand Logo component loading your local asset from the public directory
-// Brand Logo component loading your local asset from the public directory safely
+// Custom Logo for BBQ Tonight Restaurant using local PNG
 const BbqLogo = () => (
   <div className="logo-container">
     <img
@@ -25,18 +23,30 @@ const BbqLogo = () => (
       alt="BBQ Tonight Restaurant Logo"
       className="brand-logo-img"
       onError={(e) => {
-        // Fallback safe switch if path ever fails so the screen never goes black
         e.target.src = '/bbq-logo.png';
       }}
     />
   </div>
 );
 
+// Global reusable footer branding component using retale.png image
+const FooterBranding = () => (
+  <footer className="footer-branding">
+    <img
+      src={process.env.PUBLIC_URL ? `${process.env.PUBLIC_URL}/retale.png` : '/retale.png'}
+      alt="Retale Logo"
+      className="footer-logo-img"
+      onError={(e) => {
+        e.target.src = '/retale.png';
+      }}
+    />
+  </footer>
+);
+
 function App() {
-  // Form State variables
+  // Form State variables (Notes removed)
   const [guests, setGuests] = useState('');
   const [name, setName] = useState('');
-  const [notes, setNotes] = useState('');
   const [phone, setPhone] = useState('');
   const [highChair, setHighChair] = useState(false);
   const [highChairQty, setHighChairQty] = useState('');
@@ -47,7 +57,7 @@ function App() {
   // UI Modals and Flow States
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [showLeaveModal, setShowLeaveModal] = useState(false); // Controls image_95b1ab.png modal
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [waitingCode, setWaitingCode] = useState('');
 
   // App Phase Control
@@ -71,13 +81,13 @@ function App() {
     e.preventDefault();
 
     const newErrors = {};
-    if (!guests) newErrors.guests = 'Please select the number of guests';
     if (!name.trim()) newErrors.name = 'Please enter your name';
     if (!phone.trim()) {
       newErrors.phone = 'Please enter your mobile number';
     } else if (!/^\d{9,10}$/.test(phone.trim().replace(/[-\s]/g, ''))) {
       newErrors.phone = 'Please enter a valid 9 or 10-digit mobile number';
     }
+    if (!guests) newErrors.guests = 'Please select the number of guests';
 
     if (Object.keys(newErrors).length > 0) {
       const firstError = Object.keys(newErrors)[0];
@@ -104,22 +114,19 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // Triggers when user clicks 'Something wrong? Leave waitlist'
   const handleLeaveWaitlistTrigger = () => {
     setShowLeaveModal(true);
   };
 
-  // Triggers when user clicks confirmation OK button on image_95b1ab.png
   const handleCloseLeaveModal = () => {
     setShowLeaveModal(false);
-    setAppPhase('left-waitlist'); // Advances layout straight to image_95ae85.png
+    setAppPhase('left-waitlist');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleReset = () => {
     setGuests('');
     setName('');
-    setNotes('');
     setPhone('');
     setHighChair(false);
     setHighChairQty('');
@@ -155,7 +162,7 @@ function App() {
           </div>
         )}
 
-        {/* Leave Waitlist Success Modal (Matches image_95b1ab.png) */}
+        {/* Leave Waitlist Success Modal */}
         {showLeaveModal && (
           <div className="modal-overlay">
             <div className="success-modal spec-leave-modal">
@@ -205,6 +212,34 @@ function App() {
                 Trying to join the waiting list? leave your information and join the waitlist.
               </p>
 
+              {/* 1. NAME FIELD */}
+              <div className="form-group" id="name">
+                <label className="form-label">Name</label>
+                <input
+                  type="text"
+                  placeholder="Enter your name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  className="form-input"
+                />
+              </div>
+
+              {/* 2. PHONE NUMBER FIELD */}
+              <div className="form-group" id="phone">
+                <label className="form-label">Phone Number</label>
+                <div className="phone-input-group">
+                  <span className="phone-prefix">+92</span>
+                  <input
+                    type="tel"
+                    placeholder="Mobile Number"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                    className="form-input phone-main"
+                  />
+                </div>
+              </div>
+
+              {/* 3. NUMBER OF GUESTS FIELD */}
               <div className="form-group" id="guests">
                 <label className="form-label">No. of guest</label>
                 <div className="select-wrapper">
@@ -223,42 +258,7 @@ function App() {
                 </div>
               </div>
 
-              <div className="form-group" id="name">
-                <label className="form-label">Name</label>
-                <input
-                  type="text"
-                  placeholder="Enter your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="form-input"
-                />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Notes</label>
-                <textarea
-                  placeholder="Please leave a note for any special occasions."
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  className="form-textarea"
-                  rows="3"
-                />
-              </div>
-
-              <div className="form-group" id="phone">
-                <label className="form-label">Phone Number</label>
-                <div className="phone-input-group">
-                  <span className="phone-prefix">+92</span>
-                  <input
-                    type="tel"
-                    placeholder="Mobile Number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
-                    className="form-input phone-main"
-                  />
-                </div>
-              </div>
-
+              {/* 4. HIGH CHAIR FIELD */}
               <div className="checkbox-section">
                 <span className="checkbox-label-header">High Chair Required?</span>
                 <label className="custom-checkbox-container">
@@ -279,6 +279,7 @@ function App() {
                 )}
               </div>
 
+              {/* 5. WHEELCHAIR FIELD */}
               <div className="checkbox-section">
                 <span className="checkbox-label-header">Wheelchair Accessible Table Required?</span>
                 <label className="custom-checkbox-container">
@@ -299,6 +300,7 @@ function App() {
                 )}
               </div>
 
+              {/* MARKETING PROMO CHECKBOX */}
               <div className="checkbox-section promo-margin">
                 <label className="custom-checkbox-container align-start">
                   <input type="checkbox" checked={promo} onChange={(e) => setPromo(e.target.checked)} />
@@ -319,24 +321,11 @@ function App() {
               <div className="disclaimer-note">
                 <strong>Note:</strong> Your details will be used only for managing your seating, which is subject to availability.
               </div>
-              {/* <footer className="footer-branding">
-                Powered by <span className="brand-logo">reta<span className="brand-accent">lo</span></span>
-              </footer> */}
-              <footer className="footer-branding">
-                {/* <span>Powered by</span> */}
-                <img
-                  src={process.env.PUBLIC_URL ? `${process.env.PUBLIC_URL}/retale.png` : '/retale.png'}
-                  alt="Retale Logo"
-                  className="footer-logo-img"
-                  onError={(e) => {
-                    e.target.src = '/retale.png';
-                  }}
-                />
-              </footer>
+              <FooterBranding />
             </form>
           )}
 
-          {/* PHASE 2: Uploaded Initial Queue Layout Screen */}
+          {/* PHASE 2: Initial Queue Layout Screen */}
           {appPhase === 'queue' && (
             <div className="waitlist-live-screen layout-fade-in">
               <h2 className="live-user-name">Hi {name || 'Ahmed Ali'}</h2>
@@ -373,9 +362,7 @@ function App() {
               <div className="disclaimer-note">
                 <strong>Note:</strong> Your details will be used only for managing your seating, which is subject to availability.
               </div>
-              <footer className="footer-branding">
-                Powered by <span className="brand-logo">reta<span className="brand-accent">lo</span></span>
-              </footer>
+              <FooterBranding />
             </div>
           )}
 
@@ -416,19 +403,16 @@ function App() {
               <div className="disclaimer-note">
                 <strong>Note:</strong> Your details will be used only for managing your seating, which is subject to availability.
               </div>
-              <footer className="footer-branding">
-                Powered by <span className="brand-logo">reta<span className="brand-accent">lo</span></span>
-              </footer>
+              <FooterBranding />
             </div>
           )}
 
-          {/* PHASE 4: FINAL SCREEN (Matches image_95ae85.png layout perfectly) */}
+          {/* PHASE 4: FINAL SCREEN */}
           {appPhase === 'left-waitlist' && (
             <div className="waitlist-live-screen layout-fade-in">
               <h2 className="live-user-name">Hi {name || 'Ahmed Ali'}</h2>
               <h3 className="live-status-heading color-brand font-weight-medium">you’ve left the waitlist</h3>
 
-              {/* Added spacer to simulate identical layout composition */}
               <div className="spacer-block-element"></div>
 
               <div className="ticket-number-box m-bottom-compact">
@@ -448,7 +432,6 @@ function App() {
                   Share this link to your friends
                 </button>
 
-                {/* Replaced secondary button with action to re-register on form if they want to rejoin */}
                 <button type="button" className="btn-action-outline outline-subtle-grey" onClick={handleReset}>
                   Join Waitlist Again
                 </button>
@@ -460,9 +443,7 @@ function App() {
               <div className="disclaimer-note">
                 <strong>Note:</strong> Your details will be used only for managing your seating, which is subject to availability.
               </div>
-              <footer className="footer-branding">
-                Powered by <span className="brand-logo">reta<span className="brand-accent">lo</span></span>
-              </footer>
+              <FooterBranding />
             </div>
           )}
 
