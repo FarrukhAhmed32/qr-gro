@@ -44,7 +44,7 @@ const FooterBranding = () => (
 );
 
 function App() {
-  // Form State variables (Notes removed)
+  // Form State variables
   const [guests, setGuests] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -56,7 +56,6 @@ function App() {
 
   // UI Modals and Flow States
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showLeaveModal, setShowLeaveModal] = useState(false);
   const [waitingCode, setWaitingCode] = useState('');
 
@@ -64,13 +63,13 @@ function App() {
   // Phases: 'form' -> 'queue' -> 'ready-soon' -> 'left-waitlist'
   const [appPhase, setAppPhase] = useState('form');
 
-  // Background timer redirecting 'queue' phase to 'ready-soon' phase after 5s
+  // Background timer redirecting 'queue' phase to 'ready-soon' phase after 10s
   useEffect(() => {
     if (appPhase === 'queue') {
       const timer = setTimeout(() => {
         setAppPhase('ready-soon');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 5000);
+      }, 10000); // Extended from 5s to 10s
 
       return () => clearTimeout(timer);
     }
@@ -100,18 +99,14 @@ function App() {
 
     setIsSubmitting(true);
 
+    // Simulated API response delay
     setTimeout(() => {
       setIsSubmitting(false);
       const codeNum = Math.floor(10 + Math.random() * 90);
       setWaitingCode(`A${codeNum}`);
-      setShowSuccessModal(true);
+      setAppPhase('queue');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 1200);
-  };
-
-  const handleCloseSuccessModal = () => {
-    setShowSuccessModal(false);
-    setAppPhase('queue');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleLeaveWaitlistTrigger = () => {
@@ -134,33 +129,13 @@ function App() {
     setWheelchairQty('');
     setPromo(false);
     setWaitingCode('');
-    setShowSuccessModal(false);
     setShowLeaveModal(false);
     setAppPhase('form');
   };
 
   return (
     <div className="app-viewport">
-      <div className={`mobile-shell ${(showSuccessModal || showLeaveModal) ? 'modal-open' : ''}`}>
-
-        {/* Success Joining Modal */}
-        {showSuccessModal && (
-          <div className="modal-overlay">
-            <div className="success-modal">
-              <div className="modal-tick-container">
-                <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="32" cy="32" r="32" fill="#3cd15c" />
-                  <path d="M20 32.5L28 40.5L44 23.5" stroke="white" strokeWidth="5.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <h3 className="modal-title">Success</h3>
-              <p className="modal-subtitle">Your Waiting Code is {waitingCode}</p>
-              <button type="button" className="modal-ok-btn" onClick={handleCloseSuccessModal}>
-                OK
-              </button>
-            </div>
-          </div>
-        )}
+      <div className={`mobile-shell ${showLeaveModal ? 'modal-open' : ''}`}>
 
         {/* Leave Waitlist Success Modal */}
         {showLeaveModal && (
@@ -187,10 +162,14 @@ function App() {
               <h1 className="restaurant-title">BBQ Tonight Restaurant</h1>
               <div className="info-row">
                 <LocationIcon />
-                <span className="info-text">
-                  5/1, Boating Basin, Clifton,<br />
-                  block-5 Block 5 Clifton, Karachi
-                </span>
+                <a 
+                  href="https://maps.app.goo.gl/9QnBPKt4NBwAAPq6A?g_st=ic" 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="info-link info-address-link"
+                >
+                 https://maps.app.goo.gl/9QnBPKt4NBwAAPq6A?g_st=ic 
+                </a>
               </div>
               <div className="info-row">
                 <PhoneIcon />
@@ -205,7 +184,7 @@ function App() {
         <main className="content-card">
 
           {/* PHASE 1: Join Waitlist Form */}
-          {appPhase === 'form' && !showSuccessModal && (
+          {appPhase === 'form' && (
             <form onSubmit={handleSubmit} className="waitlist-form" noValidate>
               <h2 className="card-title">Join The Waitlist</h2>
               <p className="card-subtitle">

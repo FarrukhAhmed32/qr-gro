@@ -1261,3 +1261,9 @@ body {
   display: block;
   object-fit: contain;
 }
+.info-address-link {
+  word-break: break-all;      /* Breaks the string at any character to wrap */
+  white-space: normal;        /* Allows the link to drop to multiple lines */
+  display: block;             /* Ensures it honors structural layout limits */
+  max-width: 100%;            /* Keeps it strictly within its parent container */
+}
