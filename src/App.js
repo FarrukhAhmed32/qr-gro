@@ -280,7 +280,7 @@ function App() {
               {/* <div className="terms-container">
                 By joining the waitlist, you agree to our <a href="#terms" className="terms-link" onClick={e => e.preventDefault()}>terms and conditions</a>.
               </div> */}
-              <div className="terms-container" style={{ whiteSpace: 'nowrap' }}>
+              <div className="terms-container" style={{ whiteSpace: 'nowrap', fontSize: '11px', textAlign: 'center' }}>
                 By joining the waitlist, you agree to our <a href="#terms" className="terms-link" onClick={e => e.preventDefault()}>terms and conditions</a>.
               </div>
               <div className="disclaimer-note">
