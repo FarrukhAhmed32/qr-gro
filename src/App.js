@@ -217,7 +217,7 @@ function App() {
 
               {/* 3. NUMBER OF GUESTS FIELD */}
               <div className="form-group" id="guests">
-                <label className="form-label">No. of guest</label>
+                <label className="form-label">No. Of Guests</label>
                 <div className="select-wrapper">
                   <select
                     value={guests}
