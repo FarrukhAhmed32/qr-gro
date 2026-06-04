@@ -49,9 +49,7 @@ function App() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [highChair, setHighChair] = useState(false);
-  const [highChairQty, setHighChairQty] = useState('');
   const [wheelchair, setWheelchair] = useState(false);
-  const [wheelchairQty, setWheelchairQty] = useState('');
   const [promo, setPromo] = useState(false);
 
   // UI Modals and Flow States
@@ -69,7 +67,7 @@ function App() {
       const timer = setTimeout(() => {
         setAppPhase('ready-soon');
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 10000); // Extended from 5s to 10s
+      }, 10000);
 
       return () => clearTimeout(timer);
     }
@@ -124,9 +122,7 @@ function App() {
     setName('');
     setPhone('');
     setHighChair(false);
-    setHighChairQty('');
     setWheelchair(false);
-    setWheelchairQty('');
     setPromo(false);
     setWaitingCode('');
     setShowLeaveModal(false);
@@ -168,7 +164,8 @@ function App() {
                   rel="noopener noreferrer" 
                   className="info-link info-address-link"
                 >
-                 https://maps.app.goo.gl/9QnBPKt4NBwAAPq6A?g_st=ic 
+                   5/1, Boating Basin, Clifton,<br />
+                   Block 5 Clifton, Karachi
                 </a>
               </div>
               <div className="info-row">
@@ -241,42 +238,20 @@ function App() {
               <div className="checkbox-section">
                 <span className="checkbox-label-header">High Chair Required?</span>
                 <label className="custom-checkbox-container">
-                  <input type="checkbox" checked={highChair} onChange={(e) => { setHighChair(e.target.checked); if (!e.target.checked) setHighChairQty(''); }} />
+                  <input type="checkbox" checked={highChair} onChange={(e) => setHighChair(e.target.checked)} />
                   <span className="checkmark-box"></span>
                   <span className="checkbox-text">Yes</span>
                 </label>
-                {highChair && (
-                  <div className="checkbox-sub-options">
-                    {[1, 2, 3].map(num => (
-                      <label key={num} className="custom-checkbox-container">
-                        <input type="checkbox" checked={highChairQty === num} onChange={() => setHighChairQty(highChairQty === num ? '' : num)} />
-                        <span className="checkmark-box"></span>
-                        <span className="checkbox-text">{num}</span>
-                      </label>
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* 5. WHEELCHAIR FIELD */}
               <div className="checkbox-section">
                 <span className="checkbox-label-header">Wheelchair Accessible Table Required?</span>
                 <label className="custom-checkbox-container">
-                  <input type="checkbox" checked={wheelchair} onChange={(e) => { setWheelchair(e.target.checked); if (!e.target.checked) setWheelchairQty(''); }} />
+                  <input type="checkbox" checked={wheelchair} onChange={(e) => setWheelchair(e.target.checked)} />
                   <span className="checkmark-box"></span>
                   <span className="checkbox-text">Yes</span>
                 </label>
-                {wheelchair && (
-                  <div className="checkbox-sub-options">
-                    {[1, 2, 3].map(num => (
-                      <label key={num} className="custom-checkbox-container">
-                        <input type="checkbox" checked={wheelchairQty === num} onChange={() => setWheelchairQty(wheelchairQty === num ? '' : num)} />
-                        <span className="checkmark-box"></span>
-                        <span className="checkbox-text">{num}</span>
-                      </label>
-                    ))}
-                  </div>
-                )}
               </div>
 
               {/* MARKETING PROMO CHECKBOX */}
